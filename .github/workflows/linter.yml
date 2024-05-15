@@ -20,7 +20,4 @@ jobs:
           components: clippy
 
       - name: check_clippy
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --all-targets --workspace
+        run: RUSTFLAGS="-Dwarnings" cargo clippy
