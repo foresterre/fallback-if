@@ -1,0 +1,16 @@
+[package]
+name = "fallback-if"
+authors = ["Martijn Gribnau <garm@ilumeo.com>"]
+version = "1.0.0"
+
+license = "Apache-2.0 OR MIT"
+description = "Fall back to an alternative given some predicate"
+categories = ["filesystem"]
+keywords = ["combinator", "result", "alternative", "fallback"]
+repository = "https://github.com/foresterre/fallback-if"
+
+edition = "2021"
+rust-version = "1.60"
+
+[dev-dependencies]
+yare = "3"
