@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 1.0.1
+
+### Fixed
+
+- Correct the Cargo manifest category
+- Fix the readme
+
 ## 1.0.0
 
 ### Added

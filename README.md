@@ -1,30 +1,40 @@
 # fallback-if
 
-Find a common root subdirectory for a set of input paths.
-Optionally, concatenate the paths which share this common root subdirectory to a new to a new common root.
+Fallback to an alternative, given that the initial result is considered a **fail** and the predicate
+evaluates to **true**.
 
-For example, given:
+## Example
 
-```
-/my/my/common/path/a.png
-/my/my/common/path/b.png
-/my/my/uncommon/path/c.png
-```
+```rust
+fn main() {
+    struct Config {
+        fallback_to_local: bool,
+    }
 
-It finds the common root: `/my/my`, and the unrooted branches:
+    #[derive(Debug, PartialEq)]
+    struct Manifest;
 
-```
-common/path/a.png
-common/path/b.png
-uncommon/path/c.png
-```
+    impl Manifest {
+        pub fn try_fetch_remote() -> Result<Self, ()> {
+            // Oh noes! failed to fetch manifest remotely
+            Err(())
+        }
 
-If you decide to concatenate a new root directory `/new`, it will output:
+        pub fn try_fetch_local() -> Result<Self, ()> {
+            // Yesss! Fetched locally!
+            Ok(Manifest)
+        }
+    }
 
-```
-/new/common/path/a.png
-/new/common/path/b.png
-/new/uncommon/path/c.png
+    let config = Config { fallback_to_local: true };
+    let result = Manifest::try_fetch_remote();
+
+    let outcome = result.fallback_if(config.fallback_to_local, || {
+        Manifest::try_fetch_local()
+    });
+
+    assert_eq!(outcome, Ok(Manifest))
+}
 ```
 
 ## License
